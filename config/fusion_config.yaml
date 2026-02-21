@@ -1,0 +1,92 @@
+# =========================
+# Fusion Provider 基础配置
+# =========================
+#
+# 说明：
+# - 本文件主要被 load_config() 读取
+# - 部分字段可被环境变量覆盖（见各字段注释）
+
+# 默认时区（主要用于 Open-Meteo 请求与日期处理）
+timezone: Asia/Shanghai
+
+providers:
+  # 天气数据融合模式：
+  # - open_meteo_all: D+1~D+7 全部走 Open-Meteo
+  # - hybrid: D+1~D+3 走 OpenWeather，D+4~D+7 走 Open-Meteo
+  # 环境变量覆盖：WEATHER_SOURCE_MODE
+  weather_source_mode: open_meteo_all
+
+geocoding_cache:
+  # 是否启用地区 -> 经纬度缓存
+  enabled: true
+  # 缓存文件路径（相对路径基于项目根目录）
+  # 环境变量覆盖：OPENWEATHER_GEOCODING_CACHE_FILE
+  file: .cache/openweather_geocoding_cache.json
+
+# Open-Meteo 模型候选列表，按顺序回退
+models: [ecmwf_ifs, cma_grapes_global]
+
+# Open-Meteo hourly 字段（用于后续聚合为日报）
+hourly_variables: [temperature_2m, relative_humidity_2m, weather_code, precipitation, wind_speed_10m, wind_direction_10m, visibility, apparent_temperature]
+
+retry:
+  # 单模型请求最大重试次数
+  max_retries: 5
+  # 退避系数（实际等待时间随重试次数指数增长）
+  backoff_factor: 0.2
+
+api:
+  # Open-Meteo API 地址
+  base_url: https://api.open-meteo.com/v1/forecast
+  # Open-Meteo 请求超时（秒）
+  # 环境变量覆盖：OPENMETEO_TIMEOUT_SECONDS
+  timeout_seconds: 30
+
+# 每日关键小时（用于“明日分时详情”）
+key_hours: [9, 15, 21]
+
+rounding:
+  # 温度保留小数位
+  temperature: 1
+  # 降水保留小数位
+  precipitation: 1
+  # 风速保留小数位
+  wind_speed: 1
+  # 湿度保留小数位
+  humidity: 0
+
+# =========================
+# 飞书报告配置
+# =========================
+report:
+  # 默认城市（建议格式：City, Province）
+  # 环境变量覆盖：WEATHER_REPORT_CITY
+  city: Guiyang, Guizhou
+
+  # 报告生成时区
+  timezone: Asia/Shanghai
+
+  # 是否注入节假日标记（依赖 HOLIDAY_CACHE_FILE）
+  include_holiday: true
+
+  # 报告底部“数据来源”文案
+  source_cn: OpenWeather + Open-Meteo
+
+  # “更新于”时间格式（strftime 格式，建议不带 %z）
+  # 时区固定按 report.timezone 计算，并在文案中标注 UTC+8
+  updated_at_format: "%Y-%m-%d %H:%M:%S"
+
+  webhook: 
+    # 飞书流程触发器 Webhook URL
+    # 环境变量覆盖：FEISHU_WEBHOOK_URL
+    url: ""
+    # Webhook 请求超时（秒）
+    timeout_seconds: 10
+    # 发送失败后的重试次数（不含首次请求）
+    max_retries: 2
+    # 重试退避基础秒数（第 n 次重试约为 n * 此值）
+    retry_backoff_seconds: 1.5
+
+  defaults:
+    # 当环境变量 WEATHER_SOURCE_MODE 未设置时使用该默认值
+    weather_source_mode: open_meteo_all

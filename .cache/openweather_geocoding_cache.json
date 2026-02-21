@@ -1,0 +1,14 @@
+{
+  "beijing": {
+    "lat": 39.906217,
+    "lon": 116.3912757,
+    "resolved_location": "Beijing, Beijing, CN",
+    "updated_at_utc": "2026-02-21T08:20:18.465756+00:00"
+  },
+  "guiyang,guizhou": {
+    "lat": 26.6499922,
+    "lon": 106.6246178,
+    "resolved_location": "Guiyang, Guizhou, CN",
+    "updated_at_utc": "2026-02-21T08:22:21.554717+00:00"
+  }
+}
