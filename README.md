@@ -268,8 +268,8 @@ python3 scripts/feishu_weather_report.py --once
 ### B. 在宿主机设定 cron 推送
 
 ```bash
-# 每天 07:00 执行一次（示例）
-0 7 * * * cd /path/to/weather-forecast-fusion && /usr/bin/python3 scripts/feishu_weather_report.py --once --config config/fusion_config.yaml
+# 每天 23:00 执行一次（示例）
+0 15 * * * /usr/bin/python3 /home/to/path/feishu-weather-forecast/scripts/feishu_weather_report.py --once --config /home/to/path/feishu-weather-forecast/config/fusion_config.yaml >> /home/to/path/feishu-weather-forecast/cron.log 2>&1
 ```
 
 ## 返回码约定
