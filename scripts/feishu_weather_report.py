@@ -39,7 +39,7 @@ def _build_runtime_config(config_path: str) -> Dict[str, Any]:
     webhook = report.get("webhook") if isinstance(report.get("webhook"), dict) else {}
     defaults = report.get("defaults") if isinstance(report.get("defaults"), dict) else {}
 
-    city = os.getenv("WEATHER_REPORT_CITY", "").strip() or str(report.get("city") or "Beijing")
+    city = os.getenv("WEATHER_REPORT_CITY", "").strip() or str(report.get("city") or "Shanghai")
     webhook_url = os.getenv("FEISHU_WEBHOOK_URL", "").strip() or str(webhook.get("url") or "")
 
     mode_default = str(defaults.get("weather_source_mode") or "").strip().lower()

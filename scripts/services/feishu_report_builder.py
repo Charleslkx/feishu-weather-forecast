@@ -247,13 +247,13 @@ def _merge_days(forecast_result: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
 def _attach_temp_alerts(rows: List[Dict[str, Any]]) -> None:
     # Rules (life-oriented):
     # 1) Day-over-day strong change (Tmax): >= 5°C => ⏫ / <= -5°C => ⏬
-    # 2) Same-day temperature range (Tmax - Tmin): >= 10°C => ⚠️
+    # 2) Same-day temperature range (Tmax - Tmin): >= 15°C => ⚠️
     # 3) Lifestyle trend (lookback, already-formed trend):
     #    I = 0.6*Tmax + 0.4*Tmin
     #    In last 3 days, at least 2 day-to-day moves share direction,
     #    and total ΔI (today vs t-3) >= 4 => 📈, <= -4 => 📉
     day_threshold = 5.0
-    range_threshold = 10.0
+    range_threshold = 15.0
     trend_threshold = 4.0
 
     def _index_value(day: Dict[str, Any]) -> float:

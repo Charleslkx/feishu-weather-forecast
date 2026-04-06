@@ -129,12 +129,12 @@ python3 scripts/feishu_weather_report.py --once --dry-run --json-debug
 
 ## 主入口参数表（`scripts/feishu_weather_report.py`）
 
-| 参数 | 类型 | 说明 |
-|---|---|---|
-| `--config` | string | 配置文件路径，默认 `config/fusion_config.yaml` |
-| `--once` | flag | 立即执行一次 |
-| `--dry-run` | flag | 仅打印 payload，不发送 webhook |
-| `--json-debug` | flag | 输出融合结果和 payload 详情 |
+| 参数           | 类型   | 说明                                           |
+| -------------- | ------ | ---------------------------------------------- |
+| `--config`     | string | 配置文件路径，默认 `config/fusion_config.yaml` |
+| `--once`       | flag   | 立即执行一次                                   |
+| `--dry-run`    | flag   | 仅打印 payload，不发送 webhook                 |
+| `--json-debug` | flag   | 输出融合结果和 payload 详情                    |
 
 不传 `--once` 也会执行一次（默认单次模式）。
 
@@ -181,7 +181,7 @@ python3 scripts/feishu_weather_report.py --once --dry-run --json-debug
   `⚠️ → 昼夜温差大`
 - 符号判定规则：
   `⏫ / ⏬`：今天最高温相对昨天变化绝对值 ≥ 5°C
-  `⚠️`：今天昼夜温差（最高-最低）≥ 10°C
+  `⚠️`：今天昼夜温差（最高-最低）≥ 15°C
   `📈 / 📉`：近 3 天已形成趋势（I=0.6*Tmax+0.4*Tmin，最近三段日变化同向天数≥2，且今天相对3天前 ΔI 绝对值≥4）
 
 ## 融合天气调试脚本（`scripts/fused_weather.py`）
@@ -192,16 +192,16 @@ python3 scripts/fused_weather.py --region Beijing --json-only
 
 参数：
 
-| 参数 | 类型 | 说明 |
-|---|---|---|
-| `--region` | string | 地区名（如 `Beijing`） |
-| `--lat` | float | 纬度（需与 `--lon` 同时提供） |
-| `--lon` | float | 经度（需与 `--lat` 同时提供） |
-| `--start-date` | YYYY-MM-DD | 起始日期（限制 D+1~D+7） |
-| `--end-date` | YYYY-MM-DD | 结束日期（限制 D+1~D+7） |
-| `--timezone` | string | 时区，默认 `Asia/Shanghai` |
-| `--include-holiday` | flag | 附加节假日 |
-| `--json-only` | flag | 仅输出 JSON |
+| 参数                | 类型       | 说明                          |
+| ------------------- | ---------- | ----------------------------- |
+| `--region`          | string     | 地区名（如 `Beijing`）        |
+| `--lat`             | float      | 纬度（需与 `--lon` 同时提供） |
+| `--lon`             | float      | 经度（需与 `--lat` 同时提供） |
+| `--start-date`      | YYYY-MM-DD | 起始日期（限制 D+1~D+7）      |
+| `--end-date`        | YYYY-MM-DD | 结束日期（限制 D+1~D+7）      |
+| `--timezone`        | string     | 时区，默认 `Asia/Shanghai`    |
+| `--include-holiday` | flag       | 附加节假日                    |
+| `--json-only`       | flag       | 仅输出 JSON                   |
 
 ## OpenWeather 查询脚本（`scripts/weather_query.py`）
 
@@ -222,17 +222,17 @@ python3 scripts/weather_query.py --region Beijing --start-time "2026-02-18" --en
 
 参数：
 
-| 参数 | 类型 | 说明 |
-|---|---|---|
-| `--region` | string | 地区名 |
-| `--lat` | float | 纬度 |
-| `--lon` | float | 经度 |
-| `--time` | string/int | 单时间查询（epoch 或日期时间） |
-| `--start-time` | string/int | 区间开始 |
-| `--end-time` | string/int | 区间结束 |
-| `--units` | string | `standard/metric/imperial`，默认 `metric` |
-| `--lang` | string | 语言，默认 `zh_cn` |
-| `--json-only` | flag | 仅输出 JSON |
+| 参数           | 类型       | 说明                                      |
+| -------------- | ---------- | ----------------------------------------- |
+| `--region`     | string     | 地区名                                    |
+| `--lat`        | float      | 纬度                                      |
+| `--lon`        | float      | 经度                                      |
+| `--time`       | string/int | 单时间查询（epoch 或日期时间）            |
+| `--start-time` | string/int | 区间开始                                  |
+| `--end-time`   | string/int | 区间结束                                  |
+| `--units`      | string     | `standard/metric/imperial`，默认 `metric` |
+| `--lang`       | string     | 语言，默认 `zh_cn`                        |
+| `--json-only`  | flag       | 仅输出 JSON                               |
 
 注意：
 - `time` 与 `start-time/end-time` 不能同时传
